@@ -7,6 +7,10 @@ Exact graph decomposition algorithms for MaxClique and Minimum Vertex Cover prob
 
 Each of these functions use a user specified solver function. In order to validate the correctness of the algorithm, we can use an exact solver function. The purpose of these algorithms is to use a quantum annealer as the solver. 
 
+```validate_DBK.py``` imports DBK and validates the algorithm using the exact solver provided in the ```networkx``` package
+
+```validate_DBR.py``` does the same except with DBR
+
 # Los Alamos National Laboratory Open Source Release
 C19111 Decomposition Algorithms for Scalable Quantum Annealing
 
