@@ -1,5 +1,5 @@
 # Decomposition-Algorithms-for-Scalable-Quantum-Annealing
-Graph decomposition algorithms for MaxClique and Minimum Vertex Cover problems. The aim of this project is to create graph decomposition algorithms for specific problems, which generate sub-problems that are small enough to be able to be solved on modern quantum annealers. 
+Exact graph decomposition algorithms for MaxClique and Minimum Vertex Cover problems. The aim of this project is to create graph decomposition algorithms for specific problems, which generate sub-problems that are small enough to be able to be solved on modern quantum annealers. 
 
 ```DBK``` in ```DBK.py``` performs graph decomposition for the Maximum Clique problem. 
 
