@@ -11,6 +11,12 @@ Each of these functions use a user specified solver function. In order to valida
 
 ```validate_DBR.py``` does the same except with DBR
 
+# Authors
+Elijah Pelofske (epelofske@lanl.gov)
+
+Georg Hahn (regha@channing.harvard.edu)
+
+Hristo Djidjev (djidjev@lanl.gov)
+
 # Los Alamos National Laboratory Open Source Release
 C19111 Decomposition Algorithms for Scalable Quantum Annealing
-
