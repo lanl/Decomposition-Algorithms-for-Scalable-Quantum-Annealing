@@ -31,7 +31,7 @@ def edge_k_core(G, k):
 	for a in list(G.edges()):
 		x = list(G.neighbors(a[0]))
 		y = list(G.neighbors(a[1]))
-		if len(list(set(x) & set(y))) < (k-2):
+		if len(list(set(x) & set(y))) <= (k-2):
 			G.remove_edge(a[0], a[1])
 	return G
 
@@ -43,15 +43,15 @@ def k_core_reduction(graph, k):
 	OUTPUT:
 	 - "graph" Networkx Undirected Graph where k-core reduction has been applied
 	"""
-	ref1 = len(list(graph.edges()))
 	graph = nx.k_core(graph, k)
+	ref1 = len(list(graph.edges()))
 	graph = edge_k_core(graph, k)
 	ref2 = len(list(graph.edges()))
 	while ref1 != ref2:
 		if len(graph) == 0:
 			return graph
-		ref1 = len(list(graph.edges()))
 		graph = nx.k_core(graph, k)
+		ref1 = len(list(graph.edges()))
 		graph = edge_k_core(graph, k)
 		ref2 = len(list(graph.edges()))
 	return graph
@@ -142,9 +142,9 @@ def DBK(graph, LIMIT, solver_function):
 		return k
 	graph = remove_zero_degree_nodes(graph)
 	k = mc_lower_bound(graph)
-	graph = k_core_reduction(graph, len(k)-1)
-	graph = remove_zero_degree_nodes(graph)
-	assert len(graph) != 0
+	graph = k_core_reduction(graph, len(k))
+	if len(graph) == 0:
+		return k
 	if len(graph) <= LIMIT:
 		print("=== After K-core Reduction the Graph Size is Smaller than LIMIT ===")
 		print("=== Calling Solver Function ===")
@@ -164,8 +164,8 @@ def DBK(graph, LIMIT, solver_function):
 		SSG, SG = ch_partitioning(vertex, SG)
 		SG = remove_zero_degree_nodes(SG)
 		SSG = remove_zero_degree_nodes(SSG)
-		SG = k_core_reduction(SG, len(k)-1-len(vcount))
-		SSG = k_core_reduction(SSG, len(k)-1-len(vcount+[vertex]))
+		SG = k_core_reduction(SG, len(k)-len(vcount))
+		SSG = k_core_reduction(SSG, len(k)-len(vcount+[vertex]))
 		vertex_removal[SSG] = vcount+[vertex]
 		vertex_removal[SG] = vcount
 		#####################################################################################################
@@ -189,7 +189,7 @@ def DBK(graph, LIMIT, solver_function):
 				vcount = vertex_removal[SSG]
 				del vertex_removal[SSG]
 				k = SSG_lower
-				SSG = k_core_reduction(SSG, len(k)-1-len(vcount))
+				SSG = k_core_reduction(SSG, len(k)-len(vcount))
 				SSG = remove_zero_degree_nodes(SSG)
 				vertex_removal[SSG] = vcount
 			if len(SSG) != 0:
@@ -221,7 +221,7 @@ def DBK(graph, LIMIT, solver_function):
 				vcount = vertex_removal[SG]
 				del vertex_removal[SG]
 				k = SG_lower
-				SG = k_core_reduction(SG, len(k)-1-len(vcount))
+				SG = k_core_reduction(SG, len(k)-len(vcount))
 				SG = remove_zero_degree_nodes(SG)
 				vertex_removal[SG] = vcount
 			if len(SG) != 0:
