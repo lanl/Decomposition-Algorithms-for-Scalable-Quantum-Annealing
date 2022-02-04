@@ -1,4 +1,8 @@
 import networkx as nx
+import random
+random.seed(392)
+import numpy
+numpy.random.seed(483)
 
 def mc_upper_bound(G):
 	"""
